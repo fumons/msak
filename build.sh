@@ -2,7 +2,7 @@
 # Script to build msak with the correct flags.
 set -ex
 
-VERSION=$(git describe --tags)
+VERSION=$(git describe --tags --always)
 versionflags="-X github.com/m-lab/msak/pkg/version.Version=$VERSION"
 
 COMMIT=$(git log -1 --format=%h)
