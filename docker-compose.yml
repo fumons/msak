@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  msak-server:
+    image: ghcr.io/fumons/msak-server:latest
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+      - "1053:1053/udp"
+    volumes:
+      - msak-data:/msak/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO", "-", "http://localhost:9990/metrics"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  msak-data:

@@ -29,6 +29,28 @@ $ msak-server
 2024/01/04 17:41:01 INFO <latency1/latency1.go:286> Accepting UDP packets...
 ```
 
+## Docker Compose
+
+To run the published container image with Docker Compose, install
+[Docker Compose V2](https://docs.docker.com/compose/install/) and then start the
+service from this repository root:
+
+```sh
+$ docker compose up -d
+```
+
+The compose file starts `ghcr.io/fumons/msak-server:latest`, publishes the
+throughput (`8080/tcp`), metrics (`9990/tcp`), and latency (`1053/udp`) ports,
+and stores persistent state in the `msak-data` Docker volume. The server exposes
+Prometheus-formatted metrics at `http://localhost:9990/metrics` and will be
+restarted automatically if the container stops.
+
+To stop the service and remove the container while keeping the data volume:
+
+```sh
+$ docker compose down
+```
+
 ## Clients
 
 To build the client and target the local server:
